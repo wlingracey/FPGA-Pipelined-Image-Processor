@@ -10,16 +10,16 @@ The accelerator receives 640×480 RGB pixel frames streamed from a host machine 
 
 ```text
 FPGA-Pipelined-Image-Processor/
-├── rtl/
+├── RTL/
 │   ├── rgb2gray.sv        # Streaming RGB-to-grayscale luminance stage
 │   ├── sobel.sv           # Dual line-buffered 3x3 Sobel Gx/Gy gradient filter
 │   ├── mag.sv             # Signed squared-gradient sum & LUT square-root magnitude stage
 │   └── sqrt.hex           # 256-entry precomputed square-root lookup table
-├── scripts/
+├── Python/
 │   └── run_fpga.py        # Host OpenCV/pySerial 640x480 UART frame streamer & unpacker
-├── examples/
-│   ├── input.png          # Original 640x480 test frame
-│   └── output_edges.png   # Hardware-processed Sobel edge map
+├── Images/
+│   ├── car.png          # Original 640x480 test frame
+│   └── output_car.png   # Hardware-processed Sobel edge map
 ├── LICENSE
 └── README.md
 ```
