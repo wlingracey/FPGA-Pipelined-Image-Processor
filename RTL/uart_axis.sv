@@ -1,5 +1,5 @@
 module uart_axis
-  #(parameter example_p = 0) // Does nothing, just an example. You may use it, extend it, or ignore it.
+  #(parameter example_p = 0)
   (input [0:0] clk_i // 25 MHz Clock
   ,input [0:0] reset_i
 
@@ -10,11 +10,8 @@ module uart_axis
   ,output [5:1] led_o // For debugging
    );
 
-   localparam [31:0] data_width_lp = 8; // Keep this constant. Treat UART as an 8-bit bus, output.
+   localparam [31:0] data_width_lp = 8;
 
-   // In my soltion, these wires are data coming from (tx), and going
-   // to (rx) the UART module. You may pick your own alternate naming
-   // scheme.
    wire [data_width_lp-1:0] m_axis_uart_tdata;
    wire       m_axis_uart_tvalid;
    wire       m_axis_uart_tready;
@@ -35,9 +32,6 @@ module uart_axis
    wire [3:0]  s_axis_tkeep;
    wire        s_axis_tready;
 
-   // Your code here
-
-   // You'll probably want to reuse your Lab 7 code.
    uart uart_inst (
     .clk(clk_i),
     .rst(reset_i),
