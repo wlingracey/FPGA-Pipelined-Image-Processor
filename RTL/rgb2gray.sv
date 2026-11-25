@@ -1,6 +1,5 @@
 module rgb2gray
   #(
-   // This is here to help, but we won't change it.
    parameter width_p = 8
    )
   (input [0:0] clk_i
@@ -17,13 +16,7 @@ module rgb2gray
   ,input [0:0] ready_i
   );
 
-   // The testbench uses this function to test your code. How many
-   // fractional bits are needed to enode these values?
-
-   // gray = 0.2989 * r + 0.5870 * g + 0.1140 * b
-
-   // Your code here
-   wire [-1 : -14] red_w = 14'd4897; // scaled by 2^14 --> integer consts --> 16384 --> good precision?
+   wire [-1 : -14] red_w = 14'd4897; // scaled by 2^14 --> integer consts --> 16384 --> good precision
    wire [-1 : -14] green_w = 14'd9617;
    wire [-1 : -14] blue_w = 14'd1868;
    wire [width_p - 1 : -14] sum_w;
