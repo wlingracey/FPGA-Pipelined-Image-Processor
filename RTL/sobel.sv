@@ -1,6 +1,5 @@
 module sobel
     #(
-     // We provide these to you, but will not change them. 
      parameter  linewidth_px_p = 640
     ,parameter width_p = 8
     ,parameter width_out_p = 16)
@@ -17,7 +16,6 @@ module sobel
     ,output [width_out_p - 1 : 0] gy_o
     );
 
-    // Elastic State Machine Logic
    logic                        valid_r;
    wire                         enable_w;
    assign enable_w = valid_i & ready_o;
@@ -33,21 +31,8 @@ module sobel
    end
    assign valid_o = valid_r;
 
-   // Shift Register/Buffer logic
-   // Your FPGA only has ~5K registers, so this will not fit on your FPGA.
-   // You need to replace this logic with your ram delay buffer logic to make it work.
-
-   // This looks like a massive 1-D shift register, and it is.
-   // But conceptually, it is implementing a 2-D line buffer:
-   
-   // 3-register, partial Line 2 <-- Oldest line, being shifted out.
-   // Line 1
-   // Line 0 <-- Newest line, being shifted in
    logic [width_p-1:0] newest_r [2:0];   
 
-   // This is the code you need to replace to use a RAM:
-   
-   // Handle the first element separate from the general case
    always_ff @(posedge clk_i) begin
       if (reset_i) begin
          newest_r[0] <= '0; // reset bottom row
@@ -126,9 +111,6 @@ module sobel
          oldest_r[2] <= oldest_r[1];
       end
    end
-
-
-   // Okay, now that the buffer is constructed, let us make the sliding window.
    wire [(2 * width_p)-1:0] window_w [2:0][2:0]; // 3x3 slidign
 
    // Three pixels from the "oldest" line.
@@ -146,7 +128,6 @@ module sobel
    assign window_w[2][1] = {{width_p{1'b0}}, newest_r[1]}; // center bottom
    assign window_w[2][0] = {{width_p{1'b0}}, newest_r[0]}; // right bottom
 
-   // For the purposes of this module, add them all together.
    // right column - left column
    // middle row of columns gets << 1 to double weight
    // [-1 0 +1]
