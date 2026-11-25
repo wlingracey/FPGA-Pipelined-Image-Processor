@@ -1,9 +1,7 @@
 module elastic
   #(parameter [31:0] width_p = 8
-   /* verilator lint_off WIDTHTRUNC */
    ,parameter [0:0] datapath_gate_p = 0
    ,parameter [0:0] datapath_reset_p = 0
-   /* verilator lint_on WIDTHTRUNC */
    )
   (input [0:0] clk_i
   ,input [0:0] reset_i
@@ -25,9 +23,7 @@ module elastic
   assign in_w = valid_i & ready_o;
   assign out_w = valid_o & ready_i;
 
-  /* verilator lint_off WIDTHTRUNC */
   assign data_w = (datapath_gate_p == 1'b1) ? in_w : ready_o;
-  /* verilator lint_on WIDTHTRUNC */
 
   always_ff @(posedge clk_i) begin
     if (reset_i) begin
@@ -42,9 +38,7 @@ module elastic
   end
 
   always_ff @(posedge clk_i) begin
-    /* verilator lint_off WIDTHTRUNC */
     if (reset_i && datapath_reset_p) begin
-    /* verilator lint_on WIDTHTRUNC */  
       data_o <= width_p'(0);
     end else if (data_w) begin
       data_o <= data_i;
