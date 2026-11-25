@@ -1,6 +1,5 @@
 module mag
   #(
-   // This is here to help, but we won't change it.
    parameter width_in_p = 16
   ,parameter width_out_p = 16
    )
@@ -17,7 +16,6 @@ module mag
   ,input [0:0] ready_i
   );
 
-   // Your code here
    wire signed [(2 * width_in_p) - 1 : 0] gx_w; // signed 32 bit product
    // temporarily make gx_i and gy_i signed? $signed forces mult/DSP usage
    assign gx_w = $signed(gx_i) * $signed(gx_i); // compute G_x^2
@@ -42,7 +40,7 @@ module mag
     .rd_data_o(sqrt_w) // approx sqrt from hex
    );
 
-   elastic #( // async w/ elastic stage for output forces bram block?
+   elastic #( // async w/ elastic stage for output forces bram block
     .width_p(width_out_p), // 16
     .datapath_gate_p(1),
     .datapath_reset_p(0)
